@@ -13,9 +13,9 @@ def text_node_to_html_node(text_node):
             return LeafNode("i", text_node.text)
         case TextType.CODE:
             return LeafNode("i", text_node.text)
-        case TextType.LINKS:
+        case TextType.LINK:
             return LeafNode("a", text_node.text, {"href":text_node.url})
-        case TextType.IMAGES:
+        case TextType.IMAGE:
             return LeafNode("img", {"src":text_node.url, "alt":text_node.text})
 
 
@@ -42,8 +42,8 @@ class TestTextNode(unittest.TestCase):
 
     def test_t2h(self):
         node_italic = text_node_to_html_node(TextNode("This is a text node", TextType.ITALIC))
-        node_link = text_node_to_html_node(TextNode("This is a text node", TextType.LINKS, "http link link"))
-        node_image = text_node_to_html_node(TextNode("This is a text node", TextType.IMAGES, "http link link"))
+        node_link = text_node_to_html_node(TextNode("This is a text node", TextType.LINK, "http link link"))
+        node_image = text_node_to_html_node(TextNode("This is a text node", TextType.IMAGE, "http link link"))
         print(f"ITALIC:{node_italic}:")
         print(f"LINK:{node_link}:")
         print(f"IMAGE:{node_image}:")
