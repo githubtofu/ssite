@@ -2,6 +2,7 @@ import unittest
 
 from textnode import TextNode, TextType
 from htmlnode import LeafNode
+from inline_markdown import *
 
 def text_node_to_html_node(text_node):
     match text_node.text_type:
@@ -47,6 +48,14 @@ class TestTextNode(unittest.TestCase):
         print(f"ITALIC:{node_italic}:")
         print(f"LINK:{node_link}:")
         print(f"IMAGE:{node_image}:")
+
+    def test_t2t(self):
+        test_text = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        result=text_to_textnodes(test_text)
+        print("*" * 35)
+        print("Testing text to textnode")
+        print(result)
+        print("*" * 35)
 
 if __name__ == "__main__":
     unittest.main()
