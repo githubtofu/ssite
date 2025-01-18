@@ -43,3 +43,23 @@ quotoeoe
         kdjkdk"""
         print(test_head + " " + block_to_block_type(tstr))
         print(test_head + " " + "*" * 24)
+
+    def test_block_type_list(self):
+        tstr = """- dkfjd
+- jdfkdj"""
+        test_head = "tbtl"
+        print(test_head + " " + "*" * 24)
+        print(test_head + " Testing block type check : unordered")
+        print(test_head + " " + block_to_block_type(tstr))
+        print(test_head + " " + "*" * 24)
+        tstr = """-dkfjd
+- jdfkdj"""
+        print(test_head + " Testing block type check : NOT unordered")
+        print(test_head + " " + block_to_block_type(tstr))
+        print(test_head + " " + "*" * 24)
+        tstr = """1. -dkfjd
+2. - jdfkdj"""
+        print(test_head + " Testing block type check : ordered")
+        print(test_head + " " + block_to_block_type(tstr))
+        print(test_head + " " + "*" * 24)
+

@@ -1,4 +1,4 @@
-import re
+import re, functools
 def markdown_to_blocks(markdown):
     blocks = markdown.split("\n\n")
     for a_block in blocks:
@@ -23,6 +23,20 @@ def block_to_block_type(block_text):
     r = re.compile(r"^[^>]", re.MULTILINE)
     if r.search(block_text) == None:
         return "quote"
-    r = re.compile(r"")
-    
-    return "paragraph"
+    lines = block_text.split('\n')
+    if functools.reduce(lambda x, y: x and (y == "* " or y == "- "),
+                        map(lambda x: x[:2], lines), True) == True:
+        return "unordered_list"
+    list_index = 1
+    for a_line in lines:
+        print("tbtl checking line shown below")
+        print(f"tbtl :{a_line}")
+        r = re.compile(r"(\d+)\. ")
+        match = r.match(a_line)
+        if match == None:
+            return "paragraph"
+        print(f"tbtl :{match.group(1)}")
+        if int(match.group(1)) != list_index:
+            return "paragraph"
+        list_index += 1
+    return "ordered_list"
