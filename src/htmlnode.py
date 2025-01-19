@@ -24,7 +24,7 @@ class LeafNode(HTMLNode):
         if self.value == None:
             raise ValueError("No value for a leaf node")
         if self.tag == None:
-            return value
+            return self.value
         return f"<{self.tag} {self.props_to_html()}>{self.value}</{self.tag}>"
 
     def __repr__(self):
@@ -40,6 +40,8 @@ class ParentNode(HTMLNode):
         if self.children == None:
             raise ValueError("No children for parent node initialization")
         return f"<{self.tag} {self.props_to_html()}>{"".join(map(lambda x: x.to_html(), self.children))}</{self.tag}>"
+    def to_html_list(self):
+        raise Exception("Not implemented")
 
     def __repr__(self):
         return f"ParentNode({self.tag}, children: {self.children}, {self.props})"

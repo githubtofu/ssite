@@ -11,9 +11,6 @@ def markdown_to_blocks(markdown):
     return blocks
 
 def block_to_block_type(block_text):
-    print("tbt_q IN function print text")
-    print(block_text)
-    print("tbt_q" + "=" * 30)
     r = re.compile(r"#{1,6} .+")
     if r.match(block_text) != None:
         return "heading"
@@ -26,17 +23,14 @@ def block_to_block_type(block_text):
     lines = block_text.split('\n')
     if functools.reduce(lambda x, y: x and (y == "* " or y == "- "),
                         map(lambda x: x[:2], lines), True) == True:
-        return "unordered_list"
+        return "ul"
     list_index = 1
     for a_line in lines:
-        print("tbtl checking line shown below")
-        print(f"tbtl :{a_line}")
         r = re.compile(r"(\d+)\. ")
         match = r.match(a_line)
         if match == None:
-            return "paragraph"
-        print(f"tbtl :{match.group(1)}")
+            return "p"
         if int(match.group(1)) != list_index:
-            return "paragraph"
+            return "p"
         list_index += 1
-    return "ordered_list"
+    return "ol"

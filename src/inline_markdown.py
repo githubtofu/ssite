@@ -90,6 +90,7 @@ def extract_markdown_links(text):
     return matches
 
 def text_to_textnodes(text):
+    print(f"Attempting to convert to textnode:{text}")
     whole = TextNode(text, TextType.TEXT)
     return split_nodes_image(
         split_nodes_link(

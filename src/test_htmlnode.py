@@ -1,6 +1,7 @@
 import unittest
 
 from htmlnode import *
+from html_markdown import *
 
 class TestHtmlNode(unittest.TestCase):
     def test_simple(self):
@@ -55,3 +56,18 @@ class TestHtmlNode(unittest.TestCase):
         print("MULTI NODE 2 Parent")
         print(node2.to_html())
         print("NODE 2 END")
+
+    def test_final_html(self):
+        tstr="""# Header
+Paragraph
+
+- list item
+- list tem 2
+
+[link](Something)
+![image](some image)
+
+startofstring __italicstring__ **boldstrint** simplestring **boldstring2** normal parag"""
+        print("@"*40)
+        print(markdown_to_html_node(tstr))
+        print("@"*40)
