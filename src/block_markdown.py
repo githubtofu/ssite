@@ -19,7 +19,7 @@ def block_to_block_type(block_text):
         return "code"
     r = re.compile(r"^[^>]", re.MULTILINE)
     if r.search(block_text) == None:
-        return "quote"
+        return "blockquote"
     lines = block_text.split('\n')
     if functools.reduce(lambda x, y: x and (y == "* " or y == "- "),
                         map(lambda x: x[:2], lines), True) == True:
