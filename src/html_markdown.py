@@ -36,9 +36,11 @@ def markdown_to_html_node(markdown):
         if block_type == "ul" or block_type == "ol":
             child_blocks = a_block.split('\n')
             for a_child_block in child_blocks:
-                grand_child_nodes = text_to_children(a_child_block[a_child_block.find(' '):])
+                grand_child_nodes = text_to_children(a_child_block[a_child_block.find(' ')+1:])
                 child_nodes.append(ParentNode("li", grand_child_nodes))
-        else: 
+        elif not block_type == "p": 
+            child_nodes = text_to_children(a_block[a_block.find(' ')+1:])
+        else:
             child_nodes = text_to_children(a_block)
         print(f"children nodes are :{child_nodes}:")
         if block_type == "heading":

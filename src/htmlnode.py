@@ -11,7 +11,7 @@ class HTMLNode:
     def props_to_html(self):
         if self.props == None:
             return ""
-        return f"{''.join(list(map(lambda x:f' {x[0]}=\"{x[1]}\"', self.props.items())))}"
+        return f" {''.join(list(map(lambda x:f' {x[0]}=\"{x[1]}\"', self.props.items())))}"
 
     def __repr__(self):
         return f"HTMLNODE:(tag:{self.tag}, value:{self.value}, children:{self.children}, props:{self.props})"
@@ -25,7 +25,7 @@ class LeafNode(HTMLNode):
             raise ValueError("No value for a leaf node")
         if self.tag == None:
             return self.value
-        return f"<{self.tag} {self.props_to_html()}>{self.value}</{self.tag}>"
+        return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
 
     def __repr__(self):
         return f"LeafNode({self.tag}, {self.value}, {self.props})"
@@ -39,7 +39,7 @@ class ParentNode(HTMLNode):
             raise ValueError("No tag for a parent node")
         if self.children == None:
             raise ValueError("No children for parent node initialization")
-        return f"<{self.tag} {self.props_to_html()}>{"".join(map(lambda x: x.to_html(), self.children))}</{self.tag}>"
+        return f"<{self.tag}{self.props_to_html()}>{"\n".join(map(lambda x: x.to_html(), self.children))}</{self.tag}>"
     def to_html_list(self):
         raise Exception("Not implemented")
 
