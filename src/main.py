@@ -35,10 +35,25 @@ def extract_title(markdown):
         raise Exception("No title found")
     return match.group(1)
 
+def generate_all(source, dest):
+    for a_path in os.listdir(source):
+        print(f"in {a_path} : is file {os.path.isfile(a_path)}")
+        print(f"in {a_path} : is file {os.path.isfile(os.path.join(source, a_path))}")
+        if os.path.isfile(os.path.join(source, a_path)):
+            if os.path.splitext(a_path)[1] == ".md":
+                print(f"Generate {a_path}")
+                generate_page(os.path.join(source, a_path), "template.html", os.path.join(dest, a_path).rstrip("md") + "html")
+            else:
+                print(f"NOT MD {os.path.splitext(a_path)}")
+        else:
+            print(f"Calling from subdirectory:{source}->{dest}:")
+            generate_all(os.path.join(source, a_path), os.path.join(dest, os.path.basename(a_path)))
+
 def main():
     if os.path.exists("public"):
         shutil.rmtree("public")
     publish_html("static", "public")
-    generate_page("content/index.md", "template.html", "public/index.html")
+    #generate_page("content/index.md", "template.html", "public/index.html")
+    generate_all("content", "public")
 
 main()
